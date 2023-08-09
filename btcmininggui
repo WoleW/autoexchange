@@ -1,0 +1,51 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "🪙 Bitcoin Mining Script", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+--values
+_G.autoExchange = true
+
+
+
+--functions
+function autoExchange()
+    while _G.autoExchange == true do
+            local args = { 
+              [1] = true
+            }
+            
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("ExchangeMoney"):FireServer(unpack(args))
+            wait(1)
+            end
+        end
+
+
+
+--tabs
+local ExchangeTab = Window:MakeTab({
+	Name = "Exchange",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+
+
+--sections
+local Section = ExchangeTab:AddSection({
+	Name = "Exchange"
+})
+
+
+
+--toggles
+ExchangeTab:AddToggle({
+	Name = "Auto Exchange",
+	Default = false,
+	Callback = function(Value)
+		_G.autoExchange = Value
+        autoExchange()
+	end    
+})
+
+
+
+OrionLib:Init()
